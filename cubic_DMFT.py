@@ -4,8 +4,7 @@
 @then nom=200/400
 """
 
-import sys
-import os
+import sys, os
 from scipy import *
 from scipy import integrate
 from scipy import interpolate
