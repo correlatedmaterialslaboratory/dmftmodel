@@ -4,7 +4,8 @@
 @then nom=200/400
 """
 
-import sys, os
+import sys
+import os
 from scipy import *
 from scipy import integrate
 from scipy import interpolate
@@ -169,10 +170,8 @@ if __name__ == '__main__':
 		print "No Mstep: default value 10e6"
 		Mstep = 1e6
 	
-	Nomega = int(beta*20)
-	nom = int(beta)/2 #number of sampling in ctqmc
-	#Nomega = 2000 #total Matsubara number
-	#nom = 50 #total Matsubara number
+	Nomega = 5000
+	nom = 100 #number of sampling in ctqmc
 	nom_tail = 50 #number of tail
 	oms_f, oms_f_log, oms_b, oms_b_log, oms_equal_f,oms_ind \
 			= Create_om_mesh(beta, Nomega, nom, nom_tail) #regular mesh, log mesh of iw_n

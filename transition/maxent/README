@@ -1,0 +1,13 @@
+#3/25/2016
+
+1. copy all Sig.out.i into sigs/ folder 
+	by executing "copy_sig.sh"
+2. In sigs/, execute 
+	"run_make_sig.sh" 
+	"run2_make_sig.sh"
+	#tip: if ratio goes to zero, change in maxent_params.dat either of
+	#		a. deltag=0.01 or 0.02
+	#		b. gwidth=2*10 or 1*10
+3. open "plot_Aw.py" and give the right input of mu
+	mu=ratio*0.5*U
+4. Execute "plot_Aw.py"

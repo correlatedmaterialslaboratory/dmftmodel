@@ -1,0 +1,33 @@
+#!/bin/bash
+########################################################################
+# SUN Grid Engine job wrapper
+# parallel job on opteron queue
+########################################################################
+#$ -N U2.20mu0.80b200
+#$ -pe mpi2_14 96
+#$ -q wp02
+#$ -j y
+#$ -M 3juholee@physics.rutgers.edu
+#$ -m e
+#$ -v WIEN_DMFT_ROOT,LD_LIBRARY_PATH
+########################################################################
+# DON'T remove the following line!
+source $TMPDIR/sge_init.sh
+########################################################################
+source ~/.bashrc
+export WIEN_DMFT_ROOT=/opt/apps/dmft/bin
+
+#export PYTHONPATH=/opt/apps/main_July_2014/bin
+export PYTHONPATH=/home/naivephya/pyquante_lib:$PYTHONPATH
+export SCRATCH="."
+
+export SMPD_OPTION_NO_DYNAMIC_HOSTS=1
+export OMP_NUM_THREADS=1
+
+#export new_ldmft_source="/home/naivephya/dimer/project/new_lda+dmft/Source"
+
+echo "/opt/mpich2/intel/14.0/bin/mpiexec  -port $port -np $NSLOTS -machinefile $TMPDIR/machines -env OMP_NUM_THREADS 1 -envlist  LD_LIBRARY_PATH,SCRATCH,WIEN_DMFT_ROOT,PYTHONPATH,WIENROOT" > mpi_prefix.dat
+
+#10/18/2015
+U=2.20; mu=0.80; beta=200; M=1e6; Nitt=80; Nsite=20; mixr=0.0;
+python mit.py U $U mu $mu beta $beta Mstep $M Nitt $Nitt Nsite $Nsite mixr $mixr > data #wp02 128c

@@ -15,7 +15,7 @@ import copy
 class IMP:
 	def __init__(self,nom,beta,RUUN=True,wbroad=0.03,kbroad=0.15):
 	    self.checkCausality = False
-	    self.broad = True
+	    self.broad = False
 	    
 	    self.params = {"exe":   ["./ctqmc",          "# Path to executable"],
 	                   "workdir":[".",             "# Working directory for impurity"],
@@ -27,7 +27,6 @@ class IMP:
 	                   "beta":  [100,                "# Inverse temperature"],
 	                   "M" :    [10e6,               "# Number of Monte Carlo steps"],
 	                   "nom":   [150,                "# number of Matsubara frequency points to sample"],
-	                   "nomD":  [50,                 "# number of Matsubara points using the Dyson Equation"],
 	                   "aom":   [10,                  "# number of frequency points to determin high frequency tail"],
 	                   "tsample":[300,               "# how often to record the measurements" ],
 	                   "maxNoise":[1e100,            "# maximum allowed noise is large in simple run"]}
@@ -59,7 +58,6 @@ class IMP:
 	    shutil.copy2(root+'/broad', self.dir)
 	    
 	    self.params['nom'][0]=nom
-	    self.params['nomD'][0]=nom/2
 	    self.params['beta'][0]=beta
 	    
 	def Run(self,U,mu_QMC,omega_large,ind_om,Delta,Mstep):

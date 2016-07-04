@@ -1,0 +1,60 @@
+#!/bin/bash
+########################################################################
+# SUN Grid Engine job wrapper
+# parallel job on opteron queue
+########################################################################
+#$ -N PD1_mu1.0_b200
+#$ -pe mpi2_14 64
+#$ -q wp02
+#$ -j y
+#$ -M 3juholee@physics.rutgers.edu
+#$ -m e
+#$ -v WIEN_DMFT_ROOT,LD_LIBRARY_PATH
+########################################################################
+# DON'T remove the following line!
+source $TMPDIR/sge_init.sh
+########################################################################
+source ~/.bashrc
+export WIEN_DMFT_ROOT=/opt/apps/dmft/bin
+
+export SCRATCH="."
+
+export SMPD_OPTION_NO_DYNAMIC_HOSTS=1
+export OMP_NUM_THREADS=1
+
+#export new_ldmft_source="/home/naivephya/dimer/project/new_lda+dmft/Source"
+
+echo "/opt/mpich2/intel/14.0/bin/mpiexec  -port $port -np $NSLOTS -machinefile $TMPDIR/machines -env OMP_NUM_THREADS 1 -envlist  LD_LIBRARY_PATH,SCRATCH,WIEN_DMFT_ROOT,PYTHONPATH,WIENROOT" > mpi_prefix.dat
+
+
+
+mu=1.0; M=1e6; mixr=0.5; Nitt=100; beta=200
+
+#10/17/2015
+#for x in 2.5 2.10 2.08 2.04 2.0 1.96 1.92 1.88 1.84 1.8
+
+#10/18/2015
+#for x in 2.10 2.09 2.08 2.07 2.06 2.05
+
+#10/19/2015
+#from 1.88
+#for x in 1.87 1.86 1.85
+
+#3/2/2016
+for x in 2.04 2.045 2.05
+
+do
+	mkdir $WORK/$jobdir/$x
+	rcp $WORK/$jobdir/* $WORK/$jobdir/$x #copy source files
+	cd $WORK/$jobdir/$x
+
+	cp $WIEN_DMFT_ROOT/ctqmc $WORK/$jobdir/ #copy source files
+#cubic_DMFT option: noCubic, mu, beta, Nitt, mixr, Mstep
+
+	#Cubic lattice
+	python cubic_DMFT.py U $x mu $mu Mstep $M mixr $mixr Nitt $Nitt beta $beta > data.out
+
+	rm ctqmc* status*
+	cp Delta.dat $WORK/$jobdir/
+done
+rm $WORK/$jobdir/Delta.dat
