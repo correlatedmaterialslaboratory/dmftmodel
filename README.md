@@ -2,14 +2,12 @@
 
 
 Published:
-
-    "Metal-Mott insulator interfaces"
-    http://arxiv.org/abs/1606.00936
+    "Metal-Mott insulator interfaces" http://arxiv.org/abs/1606.00936
 
 PREINSTALL:
-
+    "http://hauleweb.rutgers.edu/downloads/"
+    
     CTQMC (continuous-time quantum Monte Carlo) for DMFT calculation
-        -"http://hauleweb.rutgers.edu/downloads/"
         -See also additional preinstallations such as python and C++
         -Download "dmft_w2k.tgz" (version 2015)
         -Extract:  "tar -zxvf dmft_w2k.tgz"
