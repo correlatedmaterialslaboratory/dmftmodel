@@ -2,10 +2,12 @@
 
 
 Published:
+
     "Metal-Mott insulator interfaces"
     http://arxiv.org/abs/1606.00936
 
 PREINSTALL:
+
     CTQMC (continuous-time quantum Monte Carlo) for DMFT calculation
         -"http://hauleweb.rutgers.edu/downloads/"
         -See also additional preinstallations such as python and C++
@@ -19,6 +21,7 @@ PREINSTALL:
 Execution:
 
 "phase_diagram/cubic_DMFT.py"
+
     - Calculate phase diagram of 3D-cubic Hubbard model
     - options:
         U   : onsite Hubbard interaction
@@ -27,6 +30,7 @@ Execution:
         Mstep   : number of Monte-Carlo steps
 
 "transition/mit.py"
+    
     - Perform the DMFT calculation with fixed U/mu/beta parameter in the coexistence regime across given number of sites
     - There should exist boundary conditions at the ends of the sites at given U/mu/beta:
         "Sig_i.out": insulating self-energy, boundary condition of the rightmost site
